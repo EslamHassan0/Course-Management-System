@@ -1,86 +1,127 @@
-# Course Management System
-# Product Management Application Setup Guide
+# Course Enrollment System
 
-This document provides detailed instructions for setting up and running the *Product Management Application, which uses *.NET 8** for the backend and *Angular 18* for the frontend. This application manages products and includes features such as pagination, customer management, and search functionality.
+## Overview
+The **Course Enrollment System** is a web application built with **ASP.NET MVC** and **Entity Framework (Code-First)**, using an **in-memory database** to manage students, courses, and enrollments. It follows an **n-tier architecture** with services handling business logic.
+
+## System Requirements
+### Backend (ASP.NET MVC)
+- **.NET SDK** (Latest stable version)
+- **Entity Framework Core** (for database management)
+- **Visual Studio 2022** or later (recommended)
+
+### Database
+- **Entity Framework Core In-Memory Database** (for development and testing)
+- Sample data seeding enabled
+
+### Frontend
+- **jQuery** (for dynamic UI updates)
+- **Bootstrap** (for responsive UI design)
+- **Modern Web Browser** (Chrome, Edge, Firefox, etc.)
+
+---
 
 ## Installation Instructions
-1. Clone the Repository
-First, clone the repository to your local machine:
+### 1. Clone the Repository
+```bash
+git clone https://github.com/your-username/Course-Enrollment-System.git
+cd Course-Enrollment-System
+```
 
-bash
-git clone https://github.com/your-username/Product-Management-System.git
-cd Product-Management-System
-
-
-2. Backend Setup (.NET 8)
-Navigate to the backend folder:
-
-bash
+### 2. Backend Setup
+Navigate to the backend directory:
+```bash
 cd Backend
+```
 
-Restore dependencies:
-Use the .NET CLI to restore all NuGet packages:
-
-bash
+#### Restore dependencies
+```bash
 dotnet restore
+```
 
-
-Configure the database connection:
-
-Open the appsettings.json file in the backend project.
-
-Update the ConnectionStrings section with your database credentials:
-
-json
-"ConnectionStrings": {
-  "DefaultConnection": "Server=your-server-name;Database=ProductManagementDB;User Id=your-username;Password=your-password;TrustServerCertificate=True;"
-}
-
-
-Run database migrations:
-Ensure your database server (e.g., SQL Server) is running, then apply migrations to create the database:
-
-bash
-
-dotnet ef database update
-
-
-Run the backend:
-Start the backend server:
-
-bash
+#### Run the Application
+```bash
 dotnet run
-
-
+```
 The backend will run at:
+```
+https://localhost:5001
+```
 
-https://localhost:7144
+### 3. Database Setup
+Since the system uses an in-memory database, no explicit setup is needed. Sample data is seeded automatically.
 
-3. Frontend Setup (Angular 18)
-Navigate to the frontend folder:
+---
 
-bash
-cd ../Frontend
+## Running Tests
+### Backend Tests
+To run unit tests for the .NET backend:
+```bash
+dotnet test
+```
 
+---
 
-Install dependencies:
-Use npm to install all required packages:
+## Project Structure
+```
+Course-Enrollment-System/
+│── Backend/              # .NET MVC Backend
+│   ├── Controllers/      # API Controllers
+│   ├── Services/         # Business Logic Layer
+│   ├── Models/           # Entity Models
+│   ├── Data/             # EF Core Database Context
+│   ├── Views/            # MVC Views
+│   ├── appsettings.json  # Configuration File
+│
+│── README.md             # Project Documentation
+│── .gitignore            # Files to Ignore in Git
+```
 
-bash
-npm install
+---
 
+## Features Implemented
+### 1. Student Management
+- Add, edit, delete, and list students.
+- Fields:
+  - Full Name (required)
+  - Email (unique, required)
+  - Birthdate (required)
+  - National ID No (required, max 14 characters)
+  - Phone Number (optional, max 11 characters)
 
-Run the frontend:
-Start the Angular development server:
+### 2. Course Management
+- Add, edit, delete, and list courses.
+- Fields:
+  - Title (required)
+  - Description (optional)
+  - Maximum Capacity (required)
 
-bash
-ng serve
+### 3. Enrollment Management
+- Enroll students in courses.
+- Restrictions:
+  - Prevent enrollment if the course is full.
+  - Prevent duplicate enrollments.
 
-The frontend will run at:
+### 4. UI Enhancements
+- jQuery-powered **dynamic course slot display** in the enrollment form.
+- Pagination for course listing (Bonus feature).
+- Partial views for improved UI structure.
 
-http://localhost:4200
+---
 
-4. Verify the Setup
-Open your browser and navigate to http://localhost:4200 to access the frontend.
+## Contribution Guidelines
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature-branch`)
+3. Commit changes (`git commit -m "Your message"`)
+4. Push to the branch (`git push origin feature-branch`)
+5. Open a pull request
 
-Ensure the backend is running and the frontend can communicate with it by testing the API endpoints
+---
+
+## License
+This project is licensed under the **MIT License**.
+
+---
+
+## Contact
+For any issues or inquiries, reach out to `your-email@example.com`.
+
