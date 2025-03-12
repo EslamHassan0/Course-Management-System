@@ -3,6 +3,7 @@ using CourseManagementSystem.Application.Interfaces;
 using CourseManagementSystem.Application.Services;
 using CourseManagementSystem.DataAccess.Entities;
 using CourseManagementSystem.DataAccess.Repositories;
+using CourseManagementSystem.web.SeedingData;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,6 +24,12 @@ builder.Services.AddScoped<ICourseService, CourseService>();
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 var app = builder.Build();
 
+
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    await ApplicationDbContextSeed.SeedAsync(dbContext);
+}
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {

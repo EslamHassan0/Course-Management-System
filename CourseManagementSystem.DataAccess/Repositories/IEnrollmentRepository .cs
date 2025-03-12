@@ -9,6 +9,7 @@ namespace CourseManagementSystem.DataAccess.Repositories
 {
     public interface IEnrollmentRepository : IGenericRepository<Enrollment>
     {
+        Task<IEnumerable<Enrollment>> GetAllWithDetailsAsync();
         Task<int> GetEnrollmentCountByCourseIdAsync(int courseId);
     }
 }

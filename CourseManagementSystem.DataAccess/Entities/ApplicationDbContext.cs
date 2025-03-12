@@ -22,7 +22,7 @@ namespace CourseManagementSystem.DataAccess.Entities
         {
             base.OnModelCreating(modelBuilder);
 
-            ApplicationDbContextSeed.Seed(modelBuilder);
+            
         }
     }
 }

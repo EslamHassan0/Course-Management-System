@@ -5,24 +5,42 @@ namespace CourseManagementSystem.web.SeedingData
 {
     public class ApplicationDbContextSeed
     {
-        public static void Seed(ModelBuilder modelBuilder)
+        public static async Task SeedAsync(ApplicationDbContext context)
         {
-                modelBuilder.Entity<Student>().HasData(
-              new Student { Id = 1, FullName = "Ahmed Ali", Email = "ahmed@example.com" },
-              new Student { Id = 2, FullName = "Sara Mohamed", Email = "sara@example.com" }
+            context.Database.EnsureCreated();
+            if (!context.Students.Any())   
+            {
+                await context.Students.AddRangeAsync(
+                    new Student { Id = 1, FullName = "Ahmed Ali", Email = "ahmed@example.com", Birthdate = DateTime.UtcNow, NationalIDNo = "123", PhoneNumber = "01022336478" },
+                    new Student { Id = 2, FullName = "Sara Mohamed", Email = "sara@example.com", Birthdate = DateTime.UtcNow, NationalIDNo = "321", PhoneNumber = "01022336478" }
                 );
+                await context.SaveChangesAsync();
+            }
 
-            
-            modelBuilder.Entity<Course>().HasData(
-                new Course { Id = 1, Title = "C# Basics", Description = "Learn the basics of C#" },
-                new Course { Id = 2, Title = "ASP.NET Core", Description = "Build web apps with ASP.NET Core" }
-            );
+            if (!context.Courses.Any())
+            {
+                await context.Courses.AddRangeAsync(
+                    new Course { Id = 1, Title = "C# Basics", Description = "Learn the basics of C#" , MaximumCapacity = 10 },
+                    new Course { Id = 2, Title = "ASP.NET Core", Description = "Build web apps with ASP.NET Core" , MaximumCapacity = 12 }
+                );
+                await context.SaveChangesAsync();
+            }
 
-            
-            modelBuilder.Entity<Enrollment>().HasData(
-                new Enrollment { Id = 1, StudentId = 1, CourseId = 1, EnrollmentDate = DateTime.UtcNow },
-                new Enrollment { Id = 2, StudentId = 2, CourseId = 2, EnrollmentDate = DateTime.UtcNow }
-            );
+            if (!context.Enrollments.Any())
+            {
+               
+                //var course = new Course { Id = 3, Title = "ASP.NET Core", MaximumCapacity = 10 };
+                //context.Courses.Add(course);
+
+               
+                var enrollment = new Enrollment { Id = 1, StudentId = 1, CourseId = 1, EnrollmentDate = DateTime.UtcNow };
+                context.Enrollments.Add(enrollment);
+
+                 
+                await context.SaveChangesAsync();
+
+            }
+
         }
     }
 }

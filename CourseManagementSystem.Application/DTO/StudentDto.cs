@@ -26,7 +26,7 @@ namespace CourseManagementSystem.Application.DTO
         [MaxLength(11)]
         public string? PhoneNumber { get; set; }
 
-        public ICollection<Enrollment> Enrollments { get; set; }
+        public ICollection<Enrollment>? Enrollments { get; set; }
 
     }
 }

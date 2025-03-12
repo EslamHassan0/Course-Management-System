@@ -15,6 +15,15 @@ namespace CourseManagementSystem.DataAccess.Repositories
         {
             _context = context;
         }
+
+        public async Task<IEnumerable<Enrollment>> GetAllWithDetailsAsync()
+        {
+            return await _context.Enrollments
+                .Include(e => e.Student)
+                .Include(e => e.Course)
+                .ToListAsync();
+        }
+
         public async Task<int> GetEnrollmentCountByCourseIdAsync(int courseId)
         {
             return await _context.Enrollments.CountAsync(a => a.CourseId == courseId);

@@ -9,6 +9,8 @@ namespace CourseManagementSystem.Application.Interfaces
 {
     public interface IEnrollmentService
     {
+        Task<EnrollmentDto> GetAsync(int id);
+        Task<(IEnumerable<EnrollmentDto> Enrollments, int TotalPages)> GetAllAsync(int pageNumber = 1, int pageSize = 5);
         Task<bool> EnrollStudentAsync(EnrollmentDto enrollmentDto);
         Task<bool> UnenrollStudentAsync(int enrollmentId);
         Task<int> GetAvailableSlotsAsync(int courseId);

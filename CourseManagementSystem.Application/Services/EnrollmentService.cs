@@ -16,23 +16,55 @@ namespace CourseManagementSystem.Application.Services
         //
         private readonly IEnrollmentRepository _enrollmentRepository;
         private readonly IGenericRepository<Course> _courseRepository;
+        private readonly IGenericRepository<Student> _studentRepository;
        
 
         private readonly IMapper _mapper;
         public EnrollmentService(
          IEnrollmentRepository enrollmentRepository,
           IGenericRepository<Course> courseRepository,
-          IMapper mapper)
+          IMapper mapper,
+          IGenericRepository<Student> studentRepository)
         {
             _enrollmentRepository = enrollmentRepository;
             _courseRepository = courseRepository;
             _mapper = mapper;
+            _studentRepository = studentRepository;
+        }
+
+        public async Task<(IEnumerable<EnrollmentDto> Enrollments, int TotalPages)> GetAllAsync(int pageNumber = 1, int pageSize = 5)
+        {
+            var allEnrollment = await _enrollmentRepository.GetAllWithDetailsAsync();
+
+            int totalRecords = allEnrollment.Count();
+            int totalPages = (int)Math.Ceiling(totalRecords / (double)pageSize);
+
+
+            var paginatedEnrollments = allEnrollment
+                .OrderBy(e => e.EnrollmentDate)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            return (_mapper.Map<IEnumerable<EnrollmentDto>>(paginatedEnrollments), totalPages);
+
+             
+        }
+
+        public async Task<EnrollmentDto> GetAsync(int id)
+        {
+            var allEnrollment = await _enrollmentRepository.GetByIdAsync(id);
+            return _mapper.Map<EnrollmentDto>(allEnrollment);
         }
 
         public async Task<bool>EnrollStudentAsync(EnrollmentDto enrollmentDto)
         {
            var course = await _courseRepository.GetByIdAsync(enrollmentDto.CourseId);
             if (course == null || course.MaximumCapacity <= 0)
+                return false;
+
+            var student = await _studentRepository.GetByIdAsync(enrollmentDto.StudentId);
+            if (student == null)
                 return false;
 
             var existingStudentEnrollment = await _enrollmentRepository.ExistsAsync(e =>
@@ -43,6 +75,9 @@ namespace CourseManagementSystem.Application.Services
 
             var enrollment = _mapper.Map<Enrollment>(enrollmentDto);
 
+            enrollment.Course = course;
+            enrollment.Student = student;
+            enrollment.EnrollmentDate = DateTime.Now;
             await _enrollmentRepository.AddAsync(enrollment);
             return true;
         

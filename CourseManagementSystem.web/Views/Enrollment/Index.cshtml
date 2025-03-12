@@ -1,0 +1,67 @@
+﻿@if (TempData["Success"] != null)
+{
+    <script>toastr.success("@TempData["Success"]");</script>
+}
+@if (TempData["Error"] != null)
+{
+    <script>toastr.error("@TempData["Error"]");</script>
+}
+
+<h2>Enrollments</h2>
+<a href="@Url.Action("Create")" class="btn btn-primary">Enroll a Student</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Student Name</th>
+            <th>Course Title</th>
+            <th>Enrollment Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var enrollment in Model)
+        {
+            <tr>
+                <td>@enrollment.StudentName</td>
+                <td>@enrollment.CourseTitle</td>
+                <td>@enrollment.EnrollmentDate.ToShortDateString()</td>
+                <td>
+                    <form method="post" asp-action="Unenroll" asp-route-id="@enrollment.Id">
+                        <button type="submit" class="btn btn-danger btn-sm">Unenroll</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+ 
+<nav>
+    <ul class="pagination">
+        @if (ViewBag.CurrentPage > 1)
+        {
+            <li class="page-item">
+                <a class="page-link" href="@Url.Action("Index", new { pageNumber = ViewBag.CurrentPage - 1, pageSize = 5 })">Previous</a>
+            </li>
+        }
+
+        @for (int i = 1; i <= ViewBag.TotalPages; i++)
+        {
+            <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                <a class="page-link" href="@Url.Action("Index", new { pageNumber = i, pageSize = 5 })">@i</a>
+            </li>
+        }
+
+        @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+        {
+            <li class="page-item">
+                <a class="page-link" href="@Url.Action("Index", new { pageNumber = ViewBag.CurrentPage + 1, pageSize = 5 })">Next</a>
+            </li>
+        }
+    </ul>
+</nav>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+}

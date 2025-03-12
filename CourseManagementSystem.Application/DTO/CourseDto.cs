@@ -10,11 +10,12 @@ namespace CourseManagementSystem.Application.DTO
 {
     public class CourseDto
     {
+        public int Id { get; set; }
         [Required]
         public string Title { get; set; }
         [Required]
         public int MaximumCapacity { get; set; }
         public string? Description { get; set; }
-        public ICollection<Enrollment> Enrollments { get; set; }
+        public ICollection<Enrollment>? Enrollments { get; set; }
     }
 }

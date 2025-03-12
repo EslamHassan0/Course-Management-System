@@ -1,0 +1,41 @@
+﻿@model IEnumerable<CourseManagementSystem.Application.DTO.StudentDto>
+
+@{
+    ViewData["Title"] = "Students List";
+}
+
+<h2>Students List</h2>
+<a href="@Url.Action("Create")" class="btn btn-primary">Add New Student</a>
+
+<table class="table table-bordered mt-3">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Birthdate</th>
+            <th>NationalIDNo</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var student in Model)
+        {
+            <tr>
+                <td>@student.Id</td>
+                <td>@student.FullName</td>
+                <td>@student.Email</td>
+                <td>@student.Birthdate</td>
+                <td>@student.NationalIDNo</td>
+                <td>@student.PhoneNumber</td>
+                <td>
+                    <a href="@Url.Action("Details", new { id = student.Id })" class="btn btn-info btn-sm">Details</a>
+                    <a href="@Url.Action("Edit", new { id = student.Id })" class="btn btn-warning btn-sm">Edit</a>
+                    <button class="btn btn-danger btn-sm delete-student" data-id="@student.Id">Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" asp-append-version="true"></script>
+<script src="~/js/student-index.js"></script>

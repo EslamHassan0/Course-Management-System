@@ -15,7 +15,11 @@ namespace CourseManagementSystem.Application.Common
         {
             CreateMap<Student , StudentDto>().ReverseMap();
             CreateMap<Course , CourseDto>().ReverseMap();
-            CreateMap<Enrollment , EnrollmentDto>().ReverseMap();
+            //CreateMap<EnrollmentDto, Enrollment>();
+            CreateMap<Enrollment, EnrollmentDto>()
+                .ForMember(a => a.CourseTitle, opt => opt.MapFrom(a => a.Course.Title))
+                .ForMember(a => a.StudentName, opt => opt.MapFrom(a => a.Student.FullName)).ReverseMap();
+
         }
     }
 }
