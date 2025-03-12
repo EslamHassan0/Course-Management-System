@@ -44,7 +44,7 @@ dotnet run
 ```
 The backend will run at:
 ```
-https://localhost:5001
+https://localhost:7030
 ```
 
 ### 3. Database Setup
