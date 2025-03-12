@@ -64,13 +64,19 @@ dotnet test
 ## Project Structure
 ```
 Course-Enrollment-System/
-│── Backend/              # .NET MVC Backend
-│   ├── Controllers/      # API Controllers
-│   ├── Services/         # Business Logic Layer
-│   ├── Models/           # Entity Models
-│   ├── Data/             # EF Core Database Context
-│   ├── Views/            # MVC Views
-│   ├── appsettings.json  # Configuration File
+│── Application/          # Business Logic Layer
+│   ├── Services/         # Business Logic Services
+│   ├── Interfaces/       # Interface Definitions
+│
+│── DataAccess/           # EF Core Data Access Layer
+│   ├── Entities/         # Database Entities
+│   ├── Context/          # EF Core DbContext
+│   ├── Migrations/       # Database Migrations
+│
+│── Web/                 # ASP.NET MVC Application
+│   ├── Controllers/      # MVC Controllers
+│   ├── Views/            # Razor Views
+│   ├── wwwroot/         # Static Files (CSS, JS, Images)
 │
 │── README.md             # Project Documentation
 │── .gitignore            # Files to Ignore in Git
