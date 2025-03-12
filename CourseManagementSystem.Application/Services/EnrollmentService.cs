@@ -13,20 +13,19 @@ namespace CourseManagementSystem.Application.Services
 {
     public class EnrollmentService : IEnrollmentService
     {
+        //
         private readonly IEnrollmentRepository _enrollmentRepository;
         private readonly IGenericRepository<Course> _courseRepository;
-        private readonly IGenericRepository<Student> _studentRepository;
+       
 
         private readonly IMapper _mapper;
         public EnrollmentService(
          IEnrollmentRepository enrollmentRepository,
           IGenericRepository<Course> courseRepository,
-          IGenericRepository<Student> studentRepository,
           IMapper mapper)
         {
             _enrollmentRepository = enrollmentRepository;
             _courseRepository = courseRepository;
-            _studentRepository = studentRepository;
             _mapper = mapper;
         }
 
