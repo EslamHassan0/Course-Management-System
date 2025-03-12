@@ -44,7 +44,7 @@ dotnet run
 ```
 The backend will run at:
 ```
-https://localhost:5001
+https://localhost:7030
 ```
 
 ### 3. Database Setup
@@ -123,11 +123,6 @@ Course-Enrollment-System/
 
 ---
 
-## License
-This project is licensed under the **MIT License**.
-
----
-
 ## Contact
-For any issues or inquiries, reach out to `your-email@example.com`.
+For any issues or inquiries, reach out to `hassaneslam613@gmail.com`.
 
