@@ -123,11 +123,6 @@ Course-Enrollment-System/
 
 ---
 
-## License
-This project is licensed under the **MIT License**.
-
----
-
 ## Contact
-For any issues or inquiries, reach out to `your-email@example.com`.
+For any issues or inquiries, reach out to `hassaneslam613@gmail.com`.
 
