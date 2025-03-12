@@ -23,7 +23,7 @@ The **Course Enrollment System** is a web application built with **ASP.NET MVC**
 ## Installation Instructions
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/your-username/Course-Enrollment-System.git
+git clone https://github.com/EslamHassan0/Course-Management-System.git
 cd Course-Enrollment-System
 ```
 
