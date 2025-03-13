@@ -52,27 +52,22 @@ Since the system uses an in-memory database, no explicit setup is needed. Sample
 
 ---
 
-## Running Tests
-### Backend Tests
-To run unit tests for the .NET backend:
-```bash
-dotnet test
-```
-
----
-
 ## Project Structure
 ```
-Course-Enrollment-System/
+Course-Management-System/
 │── Application/          # Business Logic Layer
 │   ├── Services/         # Business Logic Services
 │   ├── Interfaces/       # Interface Definitions
-│
+│   ├── DTO/              # Data Transfer Object (DTO)
+|   ├── Common/          # Common Services
+|
 │── DataAccess/           # EF Core Data Access Layer
 │   ├── Entities/         # Database Entities
 │   ├── Context/          # EF Core DbContext
 │   ├── Migrations/       # Database Migrations
-│
+│   ├── Repositories/     # Generic Repository
+|   ├── SeedingData/      # Data Seed of Memory 
+|
 │── Web/                 # ASP.NET MVC Application
 │   ├── Controllers/      # MVC Controllers
 │   ├── Views/            # Razor Views
@@ -81,48 +76,7 @@ Course-Enrollment-System/
 │── README.md             # Project Documentation
 │── .gitignore            # Files to Ignore in Git
 ```
-
 ---
-
-## Features Implemented
-### 1. Student Management
-- Add, edit, delete, and list students.
-- Fields:
-  - Full Name (required)
-  - Email (unique, required)
-  - Birthdate (required)
-  - National ID No (required, max 14 characters)
-  - Phone Number (optional, max 11 characters)
-
-### 2. Course Management
-- Add, edit, delete, and list courses.
-- Fields:
-  - Title (required)
-  - Description (optional)
-  - Maximum Capacity (required)
-
-### 3. Enrollment Management
-- Enroll students in courses.
-- Restrictions:
-  - Prevent enrollment if the course is full.
-  - Prevent duplicate enrollments.
-
-### 4. UI Enhancements
-- jQuery-powered **dynamic course slot display** in the enrollment form.
-- Pagination for course listing (Bonus feature).
-- Partial views for improved UI structure.
-
----
-
-## Contribution Guidelines
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature-branch`)
-3. Commit changes (`git commit -m "Your message"`)
-4. Push to the branch (`git push origin feature-branch`)
-5. Open a pull request
-
----
-
 ## Contact
 For any issues or inquiries, reach out to `hassaneslam613@gmail.com`.
 
