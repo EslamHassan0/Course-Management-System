@@ -1,0 +1,52 @@
+﻿@model CourseManagementSystem.Application.DTO.CourseDto
+
+@{
+    ViewData["Title"] = "Add New Course";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white text-center">
+            <h3><i class="fas fa-plus-circle"></i> Add New Course</h3>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                <div class="row">
+                   
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold"><i class="fas fa-book"></i> Course Title</label>
+                            <input asp-for="Title" class="form-control" placeholder="Enter course title" required />
+                        </div>
+                    </div>
+
+                  
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold"><i class="fas fa-users"></i> Maximum Capacity</label>
+                            <input asp-for="MaximumCapacity" type="number" class="form-control" min="1" required placeholder="Enter maximum capacity" />
+                        </div>
+                    </div>
+                </div>
+
+               
+                <div class="mb-3">
+                    <label class="form-label fw-bold"><i class="fas fa-align-left"></i> Description</label>
+                    <textarea asp-for="Description" class="form-control" rows="3" placeholder="Enter course description"></textarea>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success me-2">
+                        <i class="fas fa-save"></i> Save
+                    </button>
+                    <a href="@Url.Action("Index")" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">

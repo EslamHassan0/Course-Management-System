@@ -4,17 +4,21 @@
     ViewData["Title"] = "Students List";
 }
 
-<h2>Students List</h2>
-<a href="@Url.Action("Create")" class="btn btn-primary">Add New Student</a>
+<h2 class="mb-4">Students List</h2>
 
-<table class="table table-bordered mt-3">
-    <thead>
+<a href="@Url.Action("Create")" class="btn btn-primary mb-3">
+    <i class="fas fa-user-plus"></i> Add New Student
+</a>
+
+<table class="table table-bordered table-striped table-hover">
+    <thead class="table-dark">
         <tr>
             <th>ID</th>
             <th>Full Name</th>
             <th>Email</th>
             <th>Birthdate</th>
-            <th>NationalIDNo</th>
+            <th>National ID</th>
+            <th>Phone Number</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -25,17 +29,25 @@
                 <td>@student.Id</td>
                 <td>@student.FullName</td>
                 <td>@student.Email</td>
-                <td>@student.Birthdate</td>
+                <td>@student.Birthdate.ToShortDateString()</td>
                 <td>@student.NationalIDNo</td>
-                <td>@student.PhoneNumber</td>
+                <td>@(string.IsNullOrEmpty(student.PhoneNumber) ? "N/A" : student.PhoneNumber)</td>
                 <td>
-                    <a href="@Url.Action("Details", new { id = student.Id })" class="btn btn-info btn-sm">Details</a>
-                    <a href="@Url.Action("Edit", new { id = student.Id })" class="btn btn-warning btn-sm">Edit</a>
-                    <button class="btn btn-danger btn-sm delete-student" data-id="@student.Id">Delete</button>
+                    <a href="@Url.Action("Details", new { id = student.Id })" class="btn btn-info btn-sm">
+                        <i class="fas fa-eye"></i>
+                    </a>
+                    <a href="@Url.Action("Edit", new { id = student.Id })" class="btn btn-warning btn-sm">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <button class="btn btn-danger btn-sm delete-student" data-id="@student.Id">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" asp-append-version="true"></script>
-<script src="~/js/student-index.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+<script src="~/js/student-index.js" asp-append-version="true"></script>

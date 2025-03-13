@@ -4,17 +4,53 @@
     ViewData["Title"] = "Student Details";
 }
 
-<h2>Student Details</h2>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg">
+                <div class="card-header bg-primary text-white text-center">
+                    <h3 class="mb-0">Student Details</h3>
+                </div>
 
-<div class="card">
-    <div class="card-body">
-        <h4 class="card-title">@Model.FullName</h4>
-        <p><strong>Email:</strong> @Model.Email</p>
-        <p><strong>Birthdate:</strong> @Model.Birthdate.ToShortDateString()</p>
-        <p><strong>National ID:</strong> @Model.NationalIDNo</p>
-        <p><strong>Phone Number:</strong> @(string.IsNullOrEmpty(Model.PhoneNumber) ? "N/A" : Model.PhoneNumber)</p>
+                <div class="card-body">
+                    <h4 class="text-center text-primary fw-bold">@Model.FullName</h4>
+                    <hr />
+
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr>
+                                <th scope="row"><i class="bi bi-envelope-fill"></i> Email</th>
+                                <td>@Model.Email</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><i class="bi bi-calendar-date-fill"></i> Birthdate</th>
+                                <td>@Model.Birthdate.ToShortDateString()</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><i class="bi bi-card-text"></i> National ID</th>
+                                <td>@Model.NationalIDNo</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><i class="bi bi-telephone-fill"></i> Phone Number</th>
+                                <td>@(string.IsNullOrEmpty(Model.PhoneNumber) ? "N/A" : Model.PhoneNumber)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="card-footer d-flex justify-content-between">
+                    <a href="@Url.Action("Index")" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left"></i> Back to List
+                    </a>
+                    <a href="@Url.Action("Edit", new { id = Model.Id })" class="btn btn-warning">
+                        <i class="bi bi-pencil-square"></i> Edit
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-<a href="@Url.Action("Index")" class="btn btn-secondary mt-3">Back to List</a>
-<a href="@Url.Action("Edit", new { id = Model.Id })" class="btn btn-warning mt-3">Edit</a>
+@section Styles {
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+}

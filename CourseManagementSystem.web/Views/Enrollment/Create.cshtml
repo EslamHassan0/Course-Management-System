@@ -1,54 +1,73 @@
 ﻿@using CourseManagementSystem.Application.DTO
 @model EnrollmentDto
 
-<h2>Enroll a Student</h2>
+<div class="container mt-4">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white text-center">
+            <h2>Enroll a Student</h2>
+        </div>
+        <div class="card-body">
+            @if (ViewData["Error"] != null)
+            {
+                <div class="alert alert-danger text-center">
+                    <strong> Error:</strong> @ViewData["Error"]
+                </div>
+            }
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success text-center">
+                    <strong> Success:</strong> @TempData["Success"]
+                </div>
+            }
 
-@if (ViewData["Error"] != null)
-{
-    <script>toastr.error("@ViewData["Error"]");</script>
-}
-@if (TempData["Success"] != null)
-{
-    <script>toastr.success("@TempData["Success"]");</script>
-}
+            <form method="post">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Student</label>
+                        @if ((ViewBag.Students?.Count ?? 0) > 0)
+                        {
+                            <select asp-for="StudentId" asp-items="ViewBag.Students" class="form-control shadow-sm">
+                                <option value="">-- Select a Student --</option>
+                            </select>
+                        }
+                        else
+                        {
+                            <p class="text-danger mt-2"> No students available.</p>
+                        }
+                    </div>
 
-<form method="post">
-    <div class="form-group">
-        <label>Student</label>
-        @if ((ViewBag.Students?.Count ?? 0) > 0)
-        {
-            <select asp-for="StudentId" asp-items="ViewBag.Students" class="form-control">
-                <option value="">-- Select a Student --</option>
-            </select>
-        }
-        else
-        {
-            <p style="color: red;">⚠ No students available.</p>
-        }
+                    <div class="col-md-6">
+                        <label class="form-label">Course</label>
+                        @if ((ViewBag.Courses?.Count ?? 0) > 0)
+                        {
+                            <select asp-for="CourseId" asp-items="ViewBag.Courses" class="form-control shadow-sm">
+                                <option value="">-- Select a Course --</option>
+                            </select>
+                        }
+                        else
+                        {
+                            <p class="text-danger mt-2"> No courses available.</p>
+                        }
+                    </div>
+                </div>
+
+                <p class="fw-bold">Available Slots: <span id="availableSlots" class="badge bg-info">N/A</span></p>
+
+                <div class="d-flex justify-content-end">
+                    <button type="submit" class="btn btn-success me-2 px-4">
+                        <i class="fas fa-check"></i> Enroll
+                    </button>
+                    <a href="@Url.Action("Index")" class="btn btn-secondary px-4">
+                        <i class="fas fa-times"></i> Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
     </div>
-
-    <div class="form-group">
-        <label>Course</label>
-        
-        @if ((ViewBag.Courses?.Count ?? 0) > 0)
-        {
-            <select asp-for="CourseId" asp-items="ViewBag.Courses" class="form-control">
-                <option value="">-- Select a Course --</option>
-            </select>
-        }
-        else
-        {
-            <p style="color: red;">⚠ No courses available.</p>
-        }
-    </div>
-
-    <p>Available Slots: <span id="availableSlots"></span></p>
-
-    <button type="submit" class="btn btn-success">Enroll</button>
-    <a href="@Url.Action("Index")" class="btn btn-secondary">Cancel</a>
-</form>
+</div>
 
 @section Scripts {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
 }
+<script src="~/js/get-available-slots.js" asp-append-version="true"></script>
