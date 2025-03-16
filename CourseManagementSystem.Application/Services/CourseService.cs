@@ -21,10 +21,34 @@ namespace CourseManagementSystem.Application.Services
             _courseRepository = courseRepository;
             _mapper = mapper;
         }
-        public async Task<IEnumerable<CourseDto>> GetAllAsync()
+        public async Task<IEnumerable<CourseDto>> GetLookUpAsync()
         {
             var courses = await _courseRepository.GetAllAsync();
             return _mapper.Map<IEnumerable<CourseDto>>(courses);
+        }
+
+        public async Task<ResponseDTO<CourseDto>> GetAllAsync(int pageNumber = 1, int pageSize = 5)
+        {
+
+            var courses = await _courseRepository.GetAllAsync();
+
+            int totalRecords = courses.Count();
+            int totalPages = (int)Math.Ceiling(totalRecords / (double)pageSize);
+
+
+            var paginatedCourses = courses
+                .OrderBy(e => e.Title)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+
+            var courseDto = _mapper.Map<List<CourseDto>>(paginatedCourses);
+            return new ResponseDTO<CourseDto>
+            {
+                items = courseDto,
+                TotalCount = totalPages
+            };
         }
         public async Task<CourseDto> GetAsync(int id)
         {

@@ -32,7 +32,7 @@ namespace CourseManagementSystem.Application.Services
             _studentRepository = studentRepository;
         }
 
-        public async Task<(IEnumerable<EnrollmentDto> Enrollments, int TotalPages)> GetAllAsync(int pageNumber = 1, int pageSize = 5)
+        public async Task<ResponseDTO<EnrollmentDto>> GetAllAsync(int pageNumber = 1, int pageSize = 5)
         {
             var allEnrollment = await _enrollmentRepository.GetAllWithDetailsAsync();
 
@@ -46,9 +46,14 @@ namespace CourseManagementSystem.Application.Services
                 .Take(pageSize)
                 .ToList();
 
-            return (_mapper.Map<IEnumerable<EnrollmentDto>>(paginatedEnrollments), totalPages);
+            
+            var enrollmentDto = _mapper.Map<List<EnrollmentDto>>(paginatedEnrollments);
+            return new ResponseDTO<EnrollmentDto>
+            {
+                items = enrollmentDto,
+                TotalCount = totalPages
+            };
 
-             
         }
 
         public async Task<EnrollmentDto> GetAsync(int id)

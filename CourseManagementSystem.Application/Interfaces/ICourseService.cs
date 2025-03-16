@@ -9,7 +9,8 @@ namespace CourseManagementSystem.Application.Interfaces
 {
     public interface ICourseService
     {
-        Task<IEnumerable<CourseDto>> GetAllAsync();
+        Task<IEnumerable<CourseDto>> GetLookUpAsync();
+        Task<ResponseDTO<CourseDto>> GetAllAsync(int pageNumber = 1, int pageSize = 5);
         Task<CourseDto> GetAsync(int id);
         Task<CourseDto> AddAsync(CourseDto courseDto);
         Task<CourseDto> UpdateAsync(int id, CourseDto courseDto);

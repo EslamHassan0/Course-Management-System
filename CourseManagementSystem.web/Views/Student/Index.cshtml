@@ -46,8 +46,38 @@
             </tr>
         }
     </tbody>
-</table>
 
+</table>
+<div class="card-footer d-flex justify-content-center">
+    <nav>
+        <ul class="pagination">
+            @if (ViewBag.CurrentPage > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("Index", new { pageNumber = ViewBag.CurrentPage - 1, pageSize = 5 })">
+                        Previous
+                    </a>
+                </li>
+            }
+
+            @for (int i = 1; i <= ViewBag.TotalPages; i++)
+            {
+                <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("Index", new { pageNumber = i, pageSize = 5 })">@i</a>
+                </li>
+            }
+
+            @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("Index", new { pageNumber = ViewBag.CurrentPage + 1, pageSize = 5 })">
+                        Next
+                    </a>
+                </li>
+            }
+        </ul>
+    </nav>
+</div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" asp-append-version="true"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
 <script src="~/js/student-index.js" asp-append-version="true"></script>

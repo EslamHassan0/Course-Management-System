@@ -28,19 +28,19 @@ namespace CourseManagementSystem.Web.Controllers
        
         public async Task<IActionResult> Index(int pageNumber = 1, int pageSize = 5)
         {
-            var (enrollments, totalPages) = await _enrollmentService.GetAllAsync(pageNumber, pageSize);
+            var enrollments= await _enrollmentService.GetAllAsync(pageNumber, pageSize);
 
             ViewBag.CurrentPage = pageNumber;
-            ViewBag.TotalPages = totalPages;
+            ViewBag.TotalPages = enrollments.TotalCount;
 
-            return View(enrollments);
+            return View(enrollments.items);
         }
 
          
         public async Task<IActionResult> Create()
         {
-            var students = await _studentService.GetAllAsync() ?? new List<StudentDto>();
-            var courses = await _courseService.GetAllAsync() ?? new List<CourseDto>();
+            var students = await _studentService.GetLookUpAsync() ?? new List<StudentDto>();
+            var courses = await _courseService.GetLookUpAsync() ?? new List<CourseDto>();
 
             ViewBag.Students = students
                 .Select(s => new SelectListItem { Value = s.Id.ToString(), Text = s.FullName })
@@ -65,8 +65,8 @@ namespace CourseManagementSystem.Web.Controllers
             if (!ModelState.IsValid)
             {
                 TempData["Error"] = "Invalid input. Please check your entries.";
-                ViewBag.Students = new SelectList(await _studentService.GetAllAsync(), "Id", "FullName");
-                ViewBag.Courses = new SelectList(await _courseService.GetAllAsync(), "Id", "Title");
+                ViewBag.Students = new SelectList(await _studentService.GetLookUpAsync(), "Id", "FullName");
+                ViewBag.Courses = new SelectList(await _courseService.GetLookUpAsync(), "Id", "Title");
                 return View(enrollmentDto);
             }
 

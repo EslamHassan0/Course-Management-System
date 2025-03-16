@@ -1,5 +1,6 @@
 ﻿using CourseManagementSystem.Application.DTO;
 using CourseManagementSystem.Application.Interfaces;
+using CourseManagementSystem.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CourseManagementSystem.web.Controllers
@@ -14,13 +15,18 @@ namespace CourseManagementSystem.web.Controllers
         }
 
     
-        public async Task<IActionResult> Index()
+       
+        public async Task<IActionResult> Index(int pageNumber = 1, int pageSize = 5)
         {
-            var courses = await _courseService.GetAllAsync();
-            return View(courses);
+            var courses = await _courseService.GetAllAsync(pageNumber, pageSize);
+
+            ViewBag.CurrentPage = pageNumber;
+            ViewBag.TotalPages = courses.TotalCount;
+
+            return View(courses.items);
         }
 
-        
+
         public async Task<IActionResult> Details(int id)
         {
             var course = await _courseService.GetAsync(id);
